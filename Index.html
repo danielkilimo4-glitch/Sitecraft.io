@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09090b">
+<title>SiteCraft AI | Create Without Limits</title>
+<meta name="description" content="Build beautiful websites from your ideas with SiteCraft AI.">
+<style>
+:root{
+ --bg:#09090b;--surface:#111114;--surface2:#19191f;
+ --border:#292932;--white:#fff;--muted:#a1a1aa;
+ --purple:#a78bfa;--purple2:#805ad5;--green:#4ade80;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif;line-height:1.6}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
+.container{width:min(1150px,91%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:#09090bea;backdrop-filter:blur(15px);border-bottom:1px solid var(--border)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:22px;font-weight:900;letter-spacing:-1px}
+.logo span,.accent{color:var(--purple)}
+.navlinks{display:flex;gap:23px;color:#ccc;font-size:14px}
+.navlinks a:hover{color:var(--purple)}
+.btn{border:0;border-radius:10px;padding:12px 18px;font-weight:750;display:inline-flex;justify-content:center;align-items:center;gap:7px;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--purple);color:#171020}
+.secondary{background:white;color:#111}
+.outline{background:transparent;border:1px solid var(--border);color:white}
+.danger{background:#381b24;color:#ff9ca9}
+.smallbtn{padding:8px 11px;font-size:12px}
+.hero{text-align:center;padding:90px 0 65px}
+.pill{display:inline-block;border:1px solid #453568;background:#191326;color:#d4c7ff;padding:7px 14px;border-radius:30px;font-size:12px;margin-bottom:22px}
+.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.08;letter-spacing:-3px;max-width:900px;margin:auto}
+.hero p{color:var(--muted);max-width:650px;margin:20px auto 27px}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.generator{max-width:790px;margin:40px auto 0;padding:23px;background:linear-gradient(145deg,#19191f,#101014);border:1px solid #393445;border-radius:18px;text-align:left;box-shadow:0 20px 80px #0008}
+.generator label,.field label{display:block;color:#ddd;font-size:13px;margin-bottom:8px}
+textarea,input,select{width:100%;background:#09090e;color:white;border:1px solid var(--border);padding:13px;border-radius:10px;outline:none}
+textarea{min-height:110px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--purple)}
+.genrow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px}
+.muted{color:var(--muted);font-size:13px}
+.section{padding:72px 0}
+.heading{text-align:center;margin-bottom:35px}
+.heading h2{font-size:clamp(28px,4vw,42px);letter-spacing:-1px}
+.heading p{color:var(--muted);margin-top:7px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:23px}
+.card h3{margin:12px 0 6px}
+.card p{color:var(--muted);font-size:14px}
+.iconbox{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:#211936;color:#d0c0ff;font-size:21px}
+.template{padding:0;overflow:hidden}
+.mock{height:155px;display:grid;place-content:center;text-align:center;color:#111;background:#f3f0fa;padding:15px}
+.mock strong{font-size:22px}
+.mock span{font-size:12px}
+.template-info{padding:18px}
+.template-info button{margin-top:13px}
+.workspace{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.workspace .card{min-width:0}
+.field{margin:14px 0}
+.field label{margin-bottom:7px}
+.project-list{display:grid;gap:10px;margin-top:16px}
+.project{background:#0a0a0e;border:1px solid var(--border);padding:13px;border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.project strong{display:block;overflow-wrap:anywhere;font-size:14px}
+.project small{color:var(--muted)}
+.project-actions{display:flex;gap:6px;flex-wrap:wrap}
+.empty{text-align:center;padding:25px;color:var(--muted);font-size:13px}
+.price{font-size:34px;font-weight:850;margin:10px 0}
+.price small{font-size:13px;color:var(--muted);font-weight:400}
+ul{list-style:none;margin:17px 0}
+li{font-size:14px;color:#d4d4dc;padding:6px 0}
+li:before{content:"✓";color:var(--purple);margin-right:9px}
+.featured{border-color:#7656bd;box-shadow:0 0 30px #805ad51a}
+.result{margin-top:25px}
+.previewframe{width:100%;height:440px;border:1px solid var(--border);border-radius:12px;background:white}
+.result-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);font-size:13px}
+.footerrow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#292433;border:1px solid #6d549f;color:white;padding:12px 18px;border-radius:12px;z-index:50;display:none;max-width:90%;text-align:center}
+.mobile-toggle{display:none}
+@media(max-width:760px){
+ .navlinks{display:none}
+ .mobile-toggle{display:inline-flex}
+ .navlinks.open{display:flex;position:absolute;top:72px;left:0;right:0;background:#111114;padding:20px;flex-direction:column;border-bottom:1px solid var(--border)}
+ .grid{grid-template-columns:1fr}
+ .workspace{grid-template-columns:1fr}
+ .hero{padding:65px 0 45px}
+ .hero h1{letter-spacing:-2px}
+ .section{padding:55px 0}
+ .previewframe{height:370px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="container nav">
+  <a class="logo" href="#">SITECRAFT<span> AI</span></a>
+  <nav class="navlinks" id="navlinks">
+   <a href="#features">Features</a>
+   <a href="#templates">Templates</a>
+   <a href="#workspace">Dashboard</a>
+   <a href="#pricing">Pricing</a>
+  </nav>
+  <button class="btn primary" onclick="goBuilder()">Start Building ↗</button>
+  <button class="btn outline mobile-toggle" id="menuBtn" aria-label="Toggle navigation">☰</button>
+ </div>
+</header>
+
+<main>
+<section class="hero container">
+ <div class="pill">✦ THE FUTURE OF WEBSITE CREATION</div>
+ <h1>Build your next website with <span class="accent">SiteCraft AI.</span></h1>
+ <p>Turn your ideas into beautiful website designs. Describe your vision, choose a style and generate a website starter in seconds.</p>
+ <div class="actions">
+  <button class="btn primary" onclick="goBuilder()">Create Your Website ↗</button>
+  <a class="btn outline" href="#templates">Explore Templates</a>
+ </div>
+
+ <div class="generator" id="builder">
+  <label for="description">Describe the website you want to create</label>
+  <textarea id="description" placeholder="Example: Create a premium sneaker store with product sections, an about page and contact information..."></textarea>
+  <div class="genrow">
+   <span class="muted">✦ No coding experience needed</span>
+   <button class="btn primary" id="generateBtn">Generate Website ↗</button>
+  </div>
+  <p class="muted" style="margin-top:12px;font-size:11px">Starter generation uses built-in templates. A live AI service is not connected yet.</p>
+ </div>
+</section>
+
+<section class="section" id="features">
+ <div class="container">
+  <div class="heading">
+   <h2>Everything starts with an <span class="accent">idea.</span></h2>
+   <p>Tools to help you move from imagination to a website.</p>
+  </div>
+  <div class="grid">
+   <div class="card"><div class="iconbox">✦</div><h3>Website Generator</h3><p>Describe your project and create a customizable starter website.</p></div>
+   <div class="card"><div class="iconbox">◈</div><h3>Beautiful Templates</h3><p>Choose from business, portfolio, blog and online store starters.</p></div>
+   <div class="card"><div class="iconbox">▣</div><h3>Live Preview</h3><p>See what your generated website looks like before downloading it.</p></div>
+   <div class="card"><div class="iconbox">↧</div><h3>HTML Export</h3><p>Download your starter website as a standalone HTML file.</p></div>
+   <div class="card"><div class="iconbox">▤</div><h3>Project Dashboard</h3><p>Save, preview and manage projects in your browser.</p></div>
+   <div class="card"><div class="iconbox">⌁</div><h3>Responsive Design</h3><p>Use the platform on phones, tablets and desktop computers.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="templates">
+ <div class="container">
+  <div class="heading">
+   <h2>Choose your starting <span class="accent">point.</span></h2>
+   <p>Pick a template and customize it with your own description.</p>
+  </div>
+  <div class="grid">
+   <div class="card template">
+    <div class="mock"><strong>YOUR BUSINESS</strong><span>Professional. Simple. Modern.</span></div>
+    <div class="template-info"><h3>Business</h3><p>For businesses, agencies and services.</p><button class="btn outline useTemplate" data-type="business">Use Template</button></div>
+   </div>
+   <div class="card template">
+    <div class="mock"><strong>MY PORTFOLIO</strong><span>Ideas. Work. Creativity.</span></div>
+    <div class="template-info"><h3>Portfolio</h3><p>Showcase your work, skills and projects.</p><button class="btn outline useTemplate" data-type="portfolio">Use Template</button></div>
+   </div>
+   <div class="card template">
+    <div class="mock"><strong>THE STORE</strong><span>Discover your next favourite.</span></div>
+    <div class="template-info"><h3>Online Store</h3><p>Start a storefront for your products.</p><button class="btn outline useTemplate" data-type="store">Use Template</button></div>
+   </div>
+   <div class="card template">
+    <div class="mock"><strong>THE DAILY</strong><span>Stories worth reading.</span></div>
+    <div class="template-info"><h3>Blog</h3><p>Share articles, updates and stories.</p><button class="btn outline useTemplate" data-type="blog">Use Template</button></div>
+   </div>
+   <div class="card template">
+    <div class="mock"><strong>CREATIVE STUDIO</strong><span>Make your vision real.</span></div>
+    <div class="template-info"><h3>Creative Agency</h3><p>Present your creative services.</p><button class="btn outline useTemplate" data-type="agency">Use Template</button></div>
+   </div>
+   <div class="card template">
+    <div class="mock"><strong>EVENT SPACE</strong><span>Something exciting is coming.</span></div>
+    <div class="template-info"><h3>Events</h3><p>Promote an event or community.</p><button class="btn outline useTemplate" data-type="event">Use Template</button></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="workspace">
+ <div class="container">
+  <div class="heading">
+   <h2>Your creative <span class="accent">workspace.</span></h2>
+   <p>Manage your generated websites from one place.</p>
+  </div>
+  <div class="workspace">
+   <div class="card">
+    <h3>My Projects</h3>
+    <p>Your saved websites on this device.</p>
+    <div class="field">
+     <input id="projectSearch" placeholder="Search your projects..." aria-label="Search projects">
+    </div>
+    <div class="project-list" id="projectList"></div>
+    <p class="muted" style="font-size:11px;margin-top:12px">Projects are stored locally in this browser, not in an online account.</p>
+   </div>
+   <div class="card">
+    <h3>Quick Start</h3>
+    <p>Have an idea? Start creating right away.</p>
+    <div class="field">
+     <label for="quickName">Website idea</label>
+     <input id="quickName" placeholder="e.g. My photography portfolio">
+    </div>
+    <button class="btn primary" id="quickStart">Start a Project ↗</button>
+    <div style="height:20px"></div>
+    <div class="iconbox">✦</div>
+    <h3>Keep creating</h3>
+    <p>Choose a template, write a description and generate your website.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="pricing">
+ <div class="container">
+  <div class="heading">
+   <h2>Start free. <span class="accent">Grow later.</span></h2>
+   <p>Explore SiteCraft AI without paying upfront.</p>
+  </div>
+  <div class="grid">
+   <div class="card featured">
+    <h3>Free Starter</h3>
+    <div class="price">KSh 0</div>
+    <p>Everything currently available in this prototype.</p>
+    <ul><li>Website starter generator</li><li>Six templates</li><li>HTML downloads</li><li>Local project dashboard</li></ul>
+    <button class="btn primary" onclick="goBuilder()">Start for Free</button>
+   </div>
+   <div class="card">
+    <h3>Pro</h3>
+    <div class="price">Coming soon</div>
+    <p>Planned tools for growing creators.</p>
+    <ul><li>AI integrations</li><li>Advanced templates</li><li>Cloud project saving</li><li>More customization</li></ul>
+    <button class="btn outline" disabled>Coming Soon</button>
+   </div>
+   <div class="card">
+    <h3>Business</h3>
+    <div class="price">Coming soon</div>
+    <p>Planned tools for teams and businesses.</p>
+    <ul><li>Team workspace</li><li>Advanced publishing</li><li>Business tools</li><li>Priority support</li></ul>
+    <button class="btn outline" disabled>Coming Soon</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="container">
+  <div class="heading">
+   <h2>About <span class="accent">SiteCraft AI.</span></h2>
+   <p>Making website creation easier, one idea at a time.</p>
+  </div>
+  <div class="card" style="max-width:750px;margin:auto;text-align:center">
+   <h3>Our mission</h3>
+   <p>We want to help people turn their ideas into websites without needing to become professional developers first.</p>
+   <p style="margin-top:14px">Questions or feedback? Contact the SiteCraft AI team.</p>
+   <a class="btn primary" style="margin-top:18px" href="mailto:hello@sitecraftai.com">Contact Us</a>
+   <p class="muted" style="font-size:11px;margin-top:12px">Update the contact email to your real address before launch.</p>
+  </div>
+ </div>
+</section>
+
+<section class="section result" id="resultSection" hidden>
+ <div class="container">
+  <div class="heading">
+   <h2>Your website is <span class="accent">ready.</span></h2>
+   <p>Preview your starter website or download the HTML file.</p>
+  </div>
+  <iframe id="preview" class="previewframe" title="Generated website preview" sandbox="allow-scripts"></iframe>
+  <div class="result-actions">
+   <button class="btn primary" id="downloadBtn">Download HTML ↓</button>
+   <button class="btn outline" id="copyBtn">Copy HTML</button>
+   <button class="btn outline" id="newBtn">Create Another</button>
+  </div>
+  <p class="muted" style="margin-top:10px;font-size:12px">This is a customizable starter page, not a complete production website.</p>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="container footerrow">
+  <a class="logo" href="#">SITECRAFT<span> AI</span></a>
+  <span>© <span id="year"></span> SiteCraft AI. Built for creators.</span>
+  <a href="#builder">Back to builder ↑</a>
+ </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+let projects = [];
+let currentHTML = "";
+let toastTimer;
+
+try {
+ projects = JSON.parse(localStorage.getItem("sitecraft_v2_projects") || "[]");
+ if (!Array.isArray(projects)) projects = [];
+} catch(e) { projects = []; }
+
+$("year").textContent = new Date().getFullYear();
+
+function notify(message) {
+ const toast = $("toast");
+ toast.textContent = message;
+ toast.style.display = "block";
+ clearTimeout(toastTimer);
+ toastTimer = setTimeout(() => toast.style.display = "none", 2800);
+}
+
+function goBuilder() {
+ $("builder").scrollIntoView({behavior:"smooth",block:"center"});
+ $("description").focus();
+}
+
+$("menuBtn").addEventListener("click", () => {
+ $("navlinks").classList.toggle("open");
+});
+document.querySelectorAll(".navlinks a").forEach(a => {
+ a.addEventListener("click", () => $("navlinks").classList.remove("open"));
+});
+
+const templateData = {
+ business:{
+  heading:"Grow Your Business",
+  tagline:"Professional solutions designed around your needs.",
+  section:"Our Services",
+  details:"Discover the services we offer and how we can help your business grow.",
+  button:"Contact Our Team"
+ },
+ portfolio:{
+  heading:"Hello, I'm a Creator.",
+  tagline:"I turn ideas into meaningful work.",
+  section:"My Projects",
+  details:"Explore my latest projects, creative work and professional experience.",
+  button:"View My Work"
+ },
+ store:{
+  heading:"Discover Something New",
+  tagline:"Explore our latest collection and find your next favourite.",
+  section:"Featured Collection",
+  details:"Browse our products and discover something you will love.",
+  button:"Explore Collection"
+ },
+ blog:{
+  heading:"Stories Worth Sharing",
+  tagline:"Ideas, insights and inspiration, all in one place.",
+  section:"Latest Articles",
+  details:"Read our latest stories, thoughts and helpful guides.",
+  button:"Read More"
+ },
+ agency:{
+  heading:"Creative Ideas. Real Results.",
+  tagline:"Helping brands make their next big move.",
+  section:"What We Do",
+  details:"Explore our creative services, recent projects and ideas.",
+  button:"Work With Us"
+ },
+ event:{
+  heading:"Something Amazing Is Coming",
+  tagline:"Discover upcoming events and experiences.",
+  section:"Upcoming Events",
+  details:"Find out what's happening and join our community.",
+  button:"Discover Events"
+ },
+ custom:{
+  heading:"Welcome to Our Website",
+  tagline:"A new idea deserves a beautiful home on the internet.",
+  section:"About This Project",
+  details:"Discover what we do, explore our work and get in touch.",
+  button:"Get Started"
+ }
+};
+
+function escapeHTML(value) {
+ return String(value).replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+
+function buildHTML(description,type) {
+ const data = templateData[type] || templateData.custom;
+ const safe = escapeHTML(description);
+ const title = safe.length > 55 ? safe.slice(0,55) + "..." : safe;
+ const heading = safe || data.heading;
+ const tagline = safe ? "Discover more about " + safe + "." : data.tagline;
+
+ return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;color:#171717;background:#f6f5fa}
+nav{padding:22px 8%;background:#101014;color:white;font-weight:bold;letter-spacing:1px}
+.hero{text-align:center;padding:100px 20px;background:#111116;color:white}
+.hero h1{font-size:clamp(35px,7vw,65px);line-height:1.1;margin:0 auto 20px;max-width:850px}
+.hero p{color:#c6c3ce;max-width:620px;margin:0 auto 28px;line-height:1.7}
+.btn{display:inline-block;padding:14px 23px;background:#a78bfa;color:#161020;text-decoration:none;border-radius:8px;font-weight:bold}
+section{text-align:center;padding:65px 20px}
+section p{color:#666;max-width:650px;margin:15px auto;line-height:1.7}
+footer{text-align:center;padding:25px;background:#111116;color:#aaa}
+</style>
+</head>
+<body>
+<nav>${title}</nav>
+<main>
+<div class="hero">
+<h1>${heading}</h1>
+<p>${tagline}</p>
+<a class="btn" href="#contact">${data.button}</a>
+</div>
+<section>
+<h2>${data.section}</h2>
+<p>${data.details}</p>
+</section>
+<section id="contact" style="background:white">
+<h2>Let's Connect</h2>
+<p>Thank you for visiting. Add your contact details and social links here.</p>
+<a class="btn" href="mailto:hello@example.com">Get In Touch</a>
+</section>
+</main>
+<footer>Created with SiteCraft AI</footer>
+</body>
+</html>`;
+}
+
+function generate(type="custom") {
+ const description = $("description").value.trim();
+ if (!description) {
+  notify("Please describe your website idea first.");
+  $("description").focus();
+  return;
+ }
+
+ currentHTML = buildHTML(description,type);
+ const project = {
+  id: Date.now().toString(),
+  name: description.slice(0,65),
+  type,
+  html: currentHTML,
+  date: new Date().toLocaleDateString()
+ };
+
+ projects.unshift(project);
+ projects = 
